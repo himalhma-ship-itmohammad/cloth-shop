@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমার কাপড়ের দোকান</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav {
+            background: #34495e;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .nav button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .nav button:hover {
+            background: #2980b9;
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #219a52;
+        }
+
+        .cloth-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .cloth-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            background: white;
+        }
+
+        .cloth-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .cloth-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .cloth-price {
+            font-size: 20px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .cloth-description {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .login-form {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- লগইন ফর্ম -->
+    <div id="loginSection" class="login-form">
+        <h2>কাপড়ের দোকানে লগইন করুন</h2>
+        <div class="form-group">
+            <label>ইউজারনেম</label>
+            <input type="text" id="username" placeholder="আপনার ইউজারনেম দিন">
+        </div>
+        <div class="form-group">
+            <label>পাসওয়ার্ড</label>
+            <input type="password" id="password" placeholder="আপনার পাসওয়ার্ড দিন">
+        </div>
+        <button class="btn" onclick="login()">লগইন করুন</button>
+        <p style="text-align: center; margin-top: 15px;">
+            একাউন্ট নেই? <a href="#" onclick="showRegister()">রেজিস্টার করুন</a>
+        </p>
+    </div>
+
+    <!-- রেজিস্টার ফর্ম -->
+    <div id="registerSection" class="login-form hidden">
+        <h2>নতুন একাউন্ট তৈরি করুন</h2>
+        <div class="form-group">
+            <label>ইউজারনেম</label>
+            <input type="text" id="regUsername" placeholder="নতুন ইউজারনেম দিন">
+        </div>
+        <div class="form-group">
+            <label>ইমেইল</label>
+            <input type="email" id="regEmail" placeholder="আপনার ইমেইল দিন">
+        </div>
+        <div class="form-group">
+            <label>পাসওয়ার্ড</label>
+            <input type="password" id="regPassword" placeholder="নতুন পাসওয়ার্ড দিন">
+        </div>
+        <button class="btn" onclick="register()">রেজিস্টার করুন</button>
+        <p style="text-align: center; margin-top: 15px;">
+            ইতিমধ্যে একাউন্ট আছে? <a href="#" onclick="showLogin()">লগইন করুন</a>
+        </p>
+    </div>
+
+    <!-- মেইন ড্যাশবোর্ড -->
+    <div id="dashboard" class="hidden">
+        <div class="header">
+            <h1>আমার কাপড়ের দোকান</h1>
+            <p>স্বাগতম, <span id="userName">ব্যবহারকারী</span>!</p>
+        </div>
+
+        <div class="nav">
+            <button onclick="showSection('addCloth')">নতুন কাপড় যোগ করুন</button>
+            <button onclick="showSection('clothList')">কাপড়ের তালিকা</button>
+            <button onclick="logout()">লগআউট</button>
+        </div>
+
+        <!-- স্ট্যাটস কার্ড -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalProducts">0</div>
+                <div class="stat-label">মোট প্রোডাক্ট</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalValue">৳ 0</div>
+                <div class="stat-label">মোট মূল্য</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalCategories">0</div>
+                <div class="stat-label">ক্যাটাগরি</div>
+            </div>
+        </div>
+
+        <!-- নতুন কাপড় যোগ করার ফর্ম -->
+        <div id="addCloth" class="section">
+            <h2>নতুন কাপড় যোগ করুন</h2>
+            <div class="form-group">
+                <label>কাপড়ের নাম</label>
+                <input type="text" id="clothName" placeholder="কাপড়ের নাম লিখুন">
+            </div>
+            <div class="form-group">
+                <label>দাম (৳)</label>
+                <input type="number" id="clothPrice" placeholder="দাম লিখুন">
+            </div>
+            <div class="form-group">
+                <label>ক্যাটাগরি</label>
+                <select id="clothCategory">
+                    <option value="শার্ট">শার্ট</option>
+                    <option value="প্যান্ট">প্যান্ট</option>
+                    <option value="শাড়ি">শাড়ি</option>
+                    <option value="কুর্তা">কুর্তা</option>
+                    <option value="জ্যাকেট">জ্যাকেট</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>ছবির লিংক</label>
+                <input type="text" id="clothImage" placeholder="ছবির লিংক দিন" value="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80">
+            </div>
+            <div class="form-group">
+                <label>বিবরণ</label>
+                <textarea id="clothDescription" placeholder="কাপড়ের বিবরণ লিখুন" rows="3"></textarea>
+            </div>
+            <button class="btn" onclick="addCloth()">কাপড় যোগ করুন</button>
+        </div>
+
+        <!-- কাপড়ের তালিকা -->
+        <div id="clothList" class="section">
+            <h2>কাপড়ের তালিকা</h2>
+            <div class="cloth-grid" id="clothItems">
+                <!-- কাপড়ের আইটেমগুলো এখানে যোগ হবে -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ডেমো কাপড়ের ডেটা
+        let cloths = [
+            { 
+                id: 1, 
+                name: "সুতি শার্ট", 
+                price: 1200, 
+                category: "শার্ট",
+                image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", 
+                description: "সুতি কাপড়ের আরামদায়ক শার্ট" 
+            },
+            { 
+                id: 2, 
+                name: "ডেনিম জিন্স", 
+                price: 2500, 
+                category: "প্যান্ট",
+                image: "https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", 
+                description: "হাই কোয়ালিটি ডেনিম জিন্স" 
+            }
+        ];
+
+        // লগইন ফাংশন
+        function login() {
+            const username = document.getElementById('username').value;
+            if (username) {
+                document.getElementById('userName').textContent = username;
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                updateStats();
+                renderCloths();
+                showSection('addCloth');
+            } else {
+                alert('ইউজারনেম দিন');
+            }
+        }
+
+        // রেজিস্টার ফাংশন
+        function register() {
+            const username = document.getElementById('regUsername').value;
+            if (username) {
+                alert('রেজিস্ট্রেশন সফল! এখন লগইন করুন');
+                showLogin();
+            } else {
+                alert('ইউজারনেম দিন');
+            }
+        }
+
+        // লগআউট ফাংশন
+        function logout() {
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+        }
+
+        // সেকশন দেখানো
+        function showSection(sectionName) {
+            document.getElementById('addCloth').classList.add('hidden');
+            document.getElementById('clothList').classList.add('hidden');
+            document.getElementById(sectionName).classList.remove('hidden');
+        }
+
+        // রেজিস্টার ফর্ম দেখানো
+        function showRegister() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('registerSection').classList.remove('hidden');
+        }
+
+        // লগইন ফর্ম দেখানো
+        function showLogin() {
+            document.getElementById('registerSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+        }
+
+        // কাপড় যোগ করা
+        function addCloth() {
+            const name = document.getElementById('clothName').value;
+            const price = parseInt(document.getElementById('clothPrice').value);
+            const category = document.getElementById('clothCategory').value;
+            const image = document.getElementById('clothImage').value;
+            const description = document.getElementById('clothDescription').value;
+            
+            if (name && price) {
+                const newCloth = {
+                    id: cloths.length + 1,
+                    name,
+                    price,
+                    category,
+                    image,
+                    description
+                };
+                
+                cloths.push(newCloth);
+                renderCloths();
+                updateStats();
+                
+                // ফর্ম রিসেট
+                document.getElementById('clothName').value = '';
+                document.getElementById('clothPrice').value = '';
+                document.getElementById('clothDescription').value = '';
+                
+                alert('কাপড় সফলভাবে যোগ হয়েছে!');
+            } else {
+                alert('কাপড়ের নাম এবং দাম দিন');
+            }
+        }
+
+        // কাপড় ডিলিট করা
+        function deleteCloth(id) {
+            if (confirm('আপনি কি এই কাপড় ডিলিট করতে চান?')) {
+                cloths = cloths.filter(cloth => cloth.id !== id);
+                renderCloths();
+                updateStats();
+            }
+        }
+
+        // কাপড়ের তালিকা দেখানো
+        function renderCloths() {
+            const clothItems = document.getElementById('clothItems');
+            clothItems.innerHTML = '';
+            
+            cloths.forEach(cloth => {
+                const clothItem = document.createElement('div');
+                clothItem.className = 'cloth-card';
+                clothItem.innerHTML = `
+                    <img src="${cloth.image}" alt="${cloth.name}" class="cloth-image">
+                    <div class="cloth-name">${cloth.name}</div>
+                    <div class="cloth-price">৳${cloth.price}</div>
+                    <div class="cloth-description">${cloth.description}</div>
+                    <button class="delete-btn" onclick="deleteCloth(${cloth.id})">ডিলিট করুন</button>
+                `;
+                clothItems.appendChild(clothItem);
+            });
+        }
+
+        // স্ট্যাটস আপডেট করা
+        function updateStats() {
+            document.getElementById('totalProducts').textContent = cloths.length;
+            
+            const totalValue = cloths.reduce((sum, cloth) => sum + cloth.price, 0);
+            document.getElementById('totalValue').textContent = '৳ ' + totalValue;
+            
+            const categories = [...new Set(cloths.map(cloth => cloth.category))];
+            document.getElementById('totalCategories').textContent = categories.length;
+        }
+
+        // প্রথম লোডে লগইন ফর্ম দেখানো
+        document.getElementById('loginSection').classList.remove('hidden');
+    </script>
+</body>
+  </html>
