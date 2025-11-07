@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebDev Master - সম্পূর্ণ ওয়েব ডেভেলপমেন্ট টিউটোরিয়াল</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset এবং Base স্টাইল */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'SolaimanLipi', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #04AA6D;
+            --primary-dark: #059862;
+            --secondary: #282A35;
+            --light: #f1f1f1;
+            --dark: #212121;
+            --gray: #616161;
+            --border: #ddd;
+            --sidebar-width: 250px;
+            --header-height: 60px;
+            --success: #4CAF50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --info: #2196F3;
+        }
+        
+        body {
+            background-color: #fff;
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* হেডার স্টাইল */
+        header {
+            background-color: var(--secondary);
+            color: white;
+            height: var(--header-height);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo-icon {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        /* মূল কন্টেন্ট লেআউট */
+        .main-container {
+            display: flex;
+            margin-top: var(--header-height);
+            flex: 1;
+        }
+        
+        /* সাইডবার */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--light);
+            height: calc(100vh - var(--header-height));
+            position: fixed;
+            overflow-y: auto;
+            padding: 20px 0;
+            border-right: 1px solid var(--border);
+        }
+        
+        .sidebar-title {
+            padding: 10px 20px;
+            font-weight: bold;
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu a:hover {
+            background-color: rgba(0,0,0,0.05);
+            color: var(--primary);
+        }
+        
+        .sidebar-menu a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* মূল কন্টেন্ট এরিয়া */
+        .content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            background-color: white;
+            max-width: calc(100% - var(--sidebar-width));
+        }
+        
+        /* হিরো সেকশন */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* কন্টেন্ট সেকশন */
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .section-subtitle {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin: 25px 0 15px;
+        }
+        
+        /* CSS প্রপার্টি এক্সপ্লোরার */
+        .property-explorer {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .property-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .property-description {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .property-syntax {
+            background: var(--dark);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .property-values {
+            margin: 20px 0;
+        }
+        
+        .value-item {
+            margin-bottom: 10px;
+            padding-left: 15px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        /* লাইভ এডিটর */
+        .live-editor {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin: 25px 0;
+        }
+        
+        .editor-header {
+            background: var(--secondary);
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .editor-title {
+            font-weight: bold;
+        }
+        
+        .editor-content {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @media (min-width: 992px) {
+            .editor-content {
+                flex-direction: row;
+            }
+        }
+        
+        .code-panel {
+            flex: 1;
+            padding: 15px;
+            background: #f8f8f8;
+            border-right: 1px solid var(--border);
+        }
+        
+        .preview-panel {
+            flex: 1;
+            padding: 15px;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        /* উদাহরণ বক্স */
+        .example-box {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        /* টেবিল স্টাইল */
+        .property-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .property-table th, .property-table td {
+            border: 1px solid var(--border);
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .property-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .property-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        /* বাটন স্টাইল */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* নোট বক্স */
+        .note {
+            background: #e7f3ff;
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .note-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--info);
+        }
+        
+        /* প্র্যাকটিস এরিয়া */
+        .practice-area {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .practice-title {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        /* রেস্পন্সিভ ডিজাইন */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+                z-index: 999;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .content {
+                margin-left: 0;
+                max-width: 100%;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        /* প্রোগ্রেস বার */
+        .progress-container {
+            background: var(--light);
+            border-radius: 10px;
+            height: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        /* টুলটিপ */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--gray);
+            cursor: help;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* কোড হাইলাইটিং */
+        .code-tag {
+            color: #e06c75;
+        }
+        
+        .code-attr {
+            color: #d19a66;
+        }
+        
+        .code-value {
+            color: #98c379;
+        }
+        
+        .code-comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+        
+        /* ফুটার */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #444;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <!-- হেডার -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-code logo-icon"></i>
+                <span>WebDev Master</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">হোম</a></li>
+                <li><a href="#html">HTML</a></li>
+                <li><a href="#css">CSS</a></li>
+                <li><a href="#js">JavaScript</a></li>
+                <li><a href="#projects">প্রজেক্ট</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- মূল কন্টেন্ট -->
+    <div class="main-container">
+        <!-- সাইডবার -->
+        <nav class="sidebar">
+            <div class="sidebar-title">HTML টিউটোরিয়াল</div>
+            <ul class="sidebar-menu">
+                <li><a href="#html-intro" class="active">HTML পরিচিতি</a></li>
+                <li><a href="#html-basic">HTML বেসিক</a></li>
+                <li><a href="#html-elements">HTML এলিমেন্ট</a></li>
+                <li><a href="#html-attributes">HTML অ্যাট্রিবিউট</a></li>
+                <li><a href="#html-headings">হেডিংস</a></li>
+                <li><a href="#html-paragraphs">প্যারাগ্রাফ</a></li>
+                <li><a href="#html-links">লিংক</a></li>
+                <li><a href="#html-images">ইমেজ</a></li>
+                <li><a href="#html-tables">টেবিল</a></li>
+                <li><a href="#html-lists">লিস্ট</a></li>
+                <li><a href="#html-forms">ফর্ম</a></li>
+            </ul>
+            
+            <div class="sidebar-title">CSS টিউটোরিয়াল</div>
+            <ul class="sidebar-menu">
+                <li><a href="#css-intro">CSS পরিচিতি</a></li>
+                <li><a href="#css-syntax">CSS সিনট্যাক্স</a></li>
+                <li><a href="#css-selectors">সিলেক্টর</a></li>
+                <li><a href="#css-colors">রং</a></li>
+                <li><a href="#css-backgrounds">ব্যাকগ্রাউন্ড</a></li>
+                <li><a href="#css-borders">বর্ডার</a></li>
+                <li><a href="#css-margins">মার্জিন</a></li>
+                <li><a href="#css-padding">প্যাডিং</a></li>
+                <li><a href="#css-boxmodel">বক্স মডেল</a></li>
+                <li><a href="#css-display">ডিসপ্লে</a></li>
+                <li><a href="#css-position">পজিশন</a></li>
+                <li><a href="#css-flexbox">ফ্লেক্সবক্স</a></li>
+                <li><a href="#css-grid">গ্রিড</a></li>
+            </ul>
+            
+            <div class="sidebar-title">JavaScript টিউটোরিয়াল</div>
+            <ul class="sidebar-menu">
+                <li><a href="#js-intro">JavaScript পরিচিতি</a></li>
+                <li><a href="#js-syntax">সিনট্যাক্স</a></li>
+                <li><a href="#js-variables">ভেরিয়েবল</a></li>
+                <li><a href="#js-datatypes">ডেটা টাইপ</a></li>
+                <li><a href="#js-operators">অপারেটর</a></li>
+                <li><a href="#js-functions">ফাংশন</a></li>
+                <li><a href="#js-events">ইভেন্ট</a></li>
+                <li><a href="#js-dom">DOM</a></li>
+                <li><a href="#js-bom">BOM</a></li>
+            </ul>
+        </nav>
+
+        <!-- কন্টেন্ট এরিয়া -->
+        <main class="content">
+            <!-- হিরো সেকশন -->
+            <section class="hero">
+                <h1>ওয়েব ডেভেলপমেন্ট শিখুন সহজভাবে</h1>
+                <p>HTML, CSS এবং JavaScript এর সম্পূর্ণ গাইড - প্রাথমিক থেকে অ্যাডভান্সড পর্যন্ত</p>
+            </section>
+
+            <!-- HTML সেকশন -->
+            <section id="html" class="section">
+                <h2 class="section-title">HTML টিউটোরিয়াল</h2>
+                
+                <div class="property-explorer">
+                    <h3 class="property-title">HTML কি?</h3>
+                    <p class="property-description">
+                        HTML (HyperText Markup Language) হল ওয়েব পেজ তৈরি করার জন্য স্ট্যান্ডার্ড মার্কআপ ভাষা। 
+                        এটি ওয়েব ব্রাউজারে কন্টেন্ট কাঠামো এবং উপস্থাপনা বর্ণনা করে।
+                    </p>
+                    
+                    <div class="property-syntax">
+                        &lt;!DOCTYPE html&gt;<br>
+                        &lt;html&gt;<br>
+                        &lt;head&gt;<br>
+                        &nbsp;&nbsp;&lt;title&gt;পেজ টাইটেল&lt;/title&gt;<br>
+                        &lt;/head&gt;<br>
+                        &lt;body&gt;<br>
+                        &nbsp;&nbsp;&lt;h1&gt;আমার প্রথম হেডিং&lt;/h1&gt;<br>
+                        &nbsp;&nbsp;&lt;p&gt;আমার প্রথম প্যারাগ্রাফ।&lt;/p&gt;<br>
+                        &lt;/body&gt;<br>
+                        &lt;/html&gt;
+                    </div>
+                </div>
+
+                <!-- মার্জিন উদাহরণ -->
+                <div class="property-explorer">
+                    <h3 class="property-title">CSS মার্জিন (Margin)</h3>
+                    <p class="property-description">
+                        মার্জিন প্রপার্টি একটি এলিমেন্টের বাইরের স্পেস নির্ধারণ করে। এটি এলিমেন্টের চারপাশের স্পেস তৈরি করে।
+                    </p>
+                    
+                    <div class="property-syntax">
+                        selector {<br>
+                        &nbsp;&nbsp;margin: value;<br>
+                        }
+                    </div>
+                    
+                    <div class="property-values">
+                        <h4>মানসমূহ:</h4>
+                        <div class="value-item">
+                            <strong>auto</strong> - ব্রাউজার স্বয়ংক্রিয়ভাবে মার্জিন গণনা করে
+                        </div>
+                        <div class="value-item">
+                            <strong>length</strong> - px, pt, cm, ইত্যাদিতে মার্জিন নির্ধারণ করে
+                        </div>
+                        <div class="value-item">
+                            <strong>%</strong> - ধারক এলিমেন্টের প্রস্থের % এ মার্জিন নির্ধারণ করে
+                        </div>
+                        <div class="value-item">
+                            <strong>inherit</strong> - মার্জিন প্যারেন্ট এলিমেন্ট থেকে উত্তরাধিকার সূত্রে প্রাপ্ত
+                        </div>
+                    </div>
+                    
+                    <div class="live-editor">
+                        <div class="editor-header">
+                            <div class="editor-title">মার্জিন উদাহরণ</div>
+                        </div>
+                        <div class="editor-content">
+                            <div class="code-panel">
+                                <h4>CSS কোড:</h4>
+                                <div class="code-block">
+                                    .box {<br>
+                                    &nbsp;&nbsp;margin: 20px;<br>
+                                    &nbsp;&nbsp;padding: 15px;<br>
+                                    &nbsp;&nbsp;background: #3498db;<br>
+                                    &nbsp;&nbsp;color: white;<br>
+                                    &nbsp;&nbsp;border-radius: 5px;<br>
+                                    }
+                                </div>
+                            </div>
+                            <div class="preview-panel">
+                                <h4>প্রিভিউ:</h4>
+                                <div class="example-box">
+                                    <div style="margin: 20px; padding: 15px; background: #3498db; color: white; border-radius: 5px;">
+                                        এই বক্সটির 20px মার্জিন আছে
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CSS প্রপার্টি টেবিল -->
+                <h3 class="section-subtitle">CSS সাধারণ প্রপার্টিসমূহ</h3>
+                <table class="property-table">
+                    <thead>
+                        <tr>
+                            <th>প্রপার্টি</th>
+                            <th>বর্ণনা</th>
+                            <th>মান</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>color</td>
+                            <td>টেক্সটের রং নির্ধারণ করে</td>
+                            <td>red, #FF0000, rgb(255,0,0)</td>
+                        </tr>
+                        <tr>
+                            <td>background-color</td>
+                            <td>ব্যাকগ্রাউন্ড রং নির্ধারণ করে</td>
+                            <td>blue, #0000FF, rgba(0,0,255,0.5)</td>
+                        </tr>
+                        <tr>
+                            <td>font-size</td>
+                            <td>টেক্সটের সাইজ নির্ধারণ করে</td>
+                            <td>16px, 1em, 100%</td>
+                        </tr>
+                        <tr>
+                            <td>margin</td>
+                            <td>এলিমেন্টের বাইরের স্পেস নির্ধারণ করে</td>
+                            <td>10px, 5%, auto</td>
+                        </tr>
+                        <tr>
+                            <td>padding</td>
+                            <td>এলিমেন্টের ভিতরের স্পেস নির্ধারণ করে</td>
+                            <td>15px, 2em, 10%</td>
+                        </tr>
+                        <tr>
+                            <td>border</td>
+                            <td>বর্ডার স্টাইল, প্রস্থ এবং রং নির্ধারণ করে</td>
+                            <td>1px solid black</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- CSS সেকশন -->
+            <section id="css" class="section">
+                <h2 class="section-title">CSS টিউটোরিয়াল</h2>
+                
+                <div class="property-explorer">
+                    <h3 class="property-title">CSS সিনট্যাক্স</h3>
+                    <p class="property-description">
+                        CSS (Cascading Style Sheets) হল একটি স্টাইলশীট ভাষা যা HTML ডকুমেন্টের উপস্থাপনা বর্ণনা করে।
+                    </p>
+                    
+                    <div class="property-syntax">
+                        selector {<br>
+                        &nbsp;&nbsp;property: value;<br>
+                        &nbsp;&nbsp;property: value;<br>
+                        }
+                    </div>
+                    
+                    <div class="note">
+                        <div class="note-title">নোট:</div>
+                        <p>CSS সিলেক্টর HTML এলিমেন্ট নির্বাচন করতে ব্যবহৃত হয় যেগুলো আপনি স্টাইল করতে চান।</p>
+                    </div>
+                </div>
+                
+                <!-- CSS উদাহরণ -->
+                <div class="live-editor">
+                    <div class="editor-header">
+                        <div class="editor-title">CSS উদাহরণ</div>
+                    </div>
+                    <div class="editor-content">
+                        <div class="code-panel">
+                            <h4>HTML:</h4>
+                            <div class="code-block">
+                                &lt;div class="container"&gt;<br>
+                                &nbsp;&nbsp;&lt;h1&gt;শিরোনাম&lt;/h1&gt;<br>
+                                &nbsp;&nbsp;&lt;p&gt;একটি প্যারাগ্রাফ&lt;/p&gt;<br>
+                                &lt;/div&gt;
+                            </div>
+                            
+                            <h4>CSS:</h4>
+                            <div class="code-block">
+                                .container {<br>
+                                &nbsp;&nbsp;background: #f0f0f0;<br>
+                                &nbsp;&nbsp;padding: 20px;<br>
+                                &nbsp;&nbsp;border-radius: 8px;<br>
+                                }<br><br>
+                                
+                                h1 {<br>
+                                &nbsp;&nbsp;color: #2c3e50;<br>
+                                &nbsp;&nbsp;text-align: center;<br>
+                                }<br><br>
+                                
+                                p {<br>
+                                &nbsp;&nbsp;color: #7f8c8d;<br>
+                                &nbsp;&nbsp;line-height: 1.6;<br>
+                                }
+                            </div>
+                        </div>
+                        <div class="preview-panel">
+                            <h4>প্রিভিউ:</h4>
+                            <div class="example-box">
+                                <div style="background: #f0f0f0; padding: 20px; border-radius: 8px;">
+                                    <h1 style="color: #2c3e50; text-align: center;">শিরোনাম</h1>
+                                    <p style="color: #7f8c8d; line-height: 1.6;">একটি প্যারাগ্রাফ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- JavaScript সেকশন -->
+            <section id="js" class="section">
+                <h2 class="section-title">JavaScript টিউটোরিয়াল</h2>
+                
+                <div class="property-explorer">
+                    <h3 class="property-title">JavaScript পরিচিতি</h3>
+                    <p class="property-description">
+                        JavaScript হল একটি প্রোগ্রামিং ভাষা যা ওয়েব পেজগুলিকে ইন্টারেক্টিভ করে তোলে। 
+                        এটি একটি স্ক্রিপ্টিং ভাষা যা ক্লায়েন্ট-সাইডে চলে।
+                    </p>
+                    
+                    <div class="property-syntax">
+                        // ভেরিয়েবল ডিক্লেয়ার<br>
+                        let name = "John";<br>
+                        const age = 30;<br><br>
+                        
+                        // ফাংশন ডিফিনিশন<br>
+                        function greet(person) {<br>
+                        &nbsp;&nbsp;return "Hello, " + person;<br>
+                        }<br><br>
+                        
+                        // ফাংশন কল<br>
+                        console.log(greet(name));
+                    </div>
+                </div>
+                
+                <!-- JavaScript উদাহরণ -->
+                <div class="live-editor">
+                    <div class="editor-header">
+                        <div class="editor-title">JavaScript উদাহরণ</div>
+                    </div>
+                    <div class="editor-content">
+                        <div class="code-panel">
+                            <h4>JavaScript কোড:</h4>
+                            <div class="code-block">
+                                // DOM ম্যানিপুলেশন<br>
+                                const button = document.getElementById('myButton');<br>
+                                const message = document.getElementById('message');<br><br>
+                                
+                                button.addEventListener('click', function() {<br>
+                                &nbsp;&nbsp;message.textContent = 'বাটন ক্লিক করা হয়েছে!';<br>
+                                &nbsp;&nbsp;message.style.color = 'green';<br>
+                                });
+                            </div>
+                            
+                            <h4>HTML:</h4>
+                            <div class="code-block">
+                                &lt;button id="myButton"&gt;ক্লিক করুন&lt;/button&gt;<br>
+                                &lt;p id="message"&gt;&lt;/p&gt;
+                            </div>
+                        </div>
+                        <div class="preview-panel">
+                            <h4>প্রিভিউ:</h4>
+                            <div class="example-box">
+                                <button id="demoButton" class="btn">ক্লিক করুন</button>
+                                <p id="demoMessage" style="margin-top: 10px;"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- প্র্যাকটিস এরিয়া -->
+                <div class="practice-area">
+                    <h3 class="practice-title">আপনার নিজে চেষ্টা করুন</h3>
+                    <p>নিচের এডিটরে আপনার নিজের কোড লিখে দেখুন:</p>
+                    <div class="live-editor">
+                        <div class="editor-header">
+                            <div class="editor-title">লাইভ কোড এডিটর</div>
+                        </div>
+                        <div class="editor-content">
+                            <div class="code-panel">
+                                <textarea id="htmlEditor" style="width: 100%; height: 200px; padding: 10px; font-family: 'Courier New', monospace;" placeholder="আপনার HTML কোড এখানে লিখুন...">
+&lt;div style="padding: 20px; background: #e74c3c; color: white; border-radius: 5px;"&gt;
+    আপনার কন্টেন্ট এখানে
+&lt;/div&gt;
+                                </textarea>
+                                <button id="runCode" class="btn" style="margin-top: 10px;">রান করুন</button>
+                            </div>
+                            <div class="preview-panel">
+                                <h4>আউটপুট:</h4>
+                                <div id="output" style="min-height: 200px; border: 1px solid #ddd; padding: 10px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ফুটার -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>WebDev Master</h3>
+                <p>ওয়েব ডেভেলপমেন্ট শেখার জন্য সম্পূর্ণ বাংলা রিসোর্স। HTML, CSS এবং JavaScript এর সম্পূর্ণ গাইড।</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>লিংক</h3>
+                <ul class="footer-links">
+                    <li><a href="#html">HTML টিউটোরিয়াল</a></li>
+                    <li><a href="#css">CSS টিউটোরিয়াল</a></li>
+                    <li><a href="#js">JavaScript টিউটোরিয়াল</a></li>
+                    <li><a href="#projects">প্রজেক্ট</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>যোগাযোগ</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-envelope"></i> ইমেইল</a></li>
+                    <li><a href="#"><i class="fab fa-facebook"></i> ফেসবুক</a></li>
+                    <li><a href="#"><i class="fab fa-youtube"></i> ইউটিউব</a></li>
+                    <li><a href="#"><i class="fab fa-github"></i> গিটহাব</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; ২০২৪ WebDev Master. সকল স্বত্ব সংরক্ষিত।</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // DOM কন্টেন্ট লোড হওয়ার পরে কোড এক্সিকিউট করুন
+        document.addEventListener('DOMContentLoaded', function() {
+            // ডেমো বাটন ইভেন্ট
+            const demoButton = document.getElementById('demoButton');
+            const demoMessage = document.getElementById('demoMessage');
+            
+            if (demoButton && demoMessage) {
+                demoButton.addEventListener('click', function() {
+                    demoMessage.textContent = 'বাটন ক্লিক করা হয়েছে!';
+                    demoMessage.style.color = 'green';
+                });
+            }
+            
+            // লাইভ কোড এডিটর
+            const htmlEditor = document.getElementById('htmlEditor');
+            const runCode = document.getElementById('runCode');
+            const output = document.getElementById('output');
+            
+            if (runCode && output && htmlEditor) {
+                runCode.addEventListener('click', function() {
+                    output.innerHTML = htmlEditor.value;
+                });
+            }
+            
+            // সাইডবার মেনু একটিভ করা
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // স্মুথ স্ক্রোলিং
+                    const targetId = this.getAttribute('href');
+                    if (targetId && targetId.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // প্রোগ্রেস বার
+            const progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar';
+            const progressContainer = document.createElement('div');
+            progressContainer.className = 'progress-container';
+            progressContainer.appendChild(progressBar);
+            
+            // প্রোগ্রেস বার আপডেট ফাংশন
+            function updateProgressBar() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrollTop = window.pageYOffset;
+                const progress = (scrollTop / documentHeight) * 100;
+                progressBar.style.width = progress + '%';
+            }
+            
+            // স্ক্রোল ইভেন্টে প্রোগ্রেস বার আপডেট করুন
+            window.addEventListener('scroll', updateProgressBar);
+            
+            // টুলটিপ ফাংশনালিটি
+            const tooltips = document.querySelectorAll('.tooltip');
+            tooltips.forEach(tooltip => {
+                tooltip.addEventListener('mouseenter', function() {
+                    // টুলটিপ শো করার লজিক
+                });
+            });
+            
+            // ডার্ক/লাইট মোড টগল (ভবিষ্যতের জন্য)
+            const darkModeToggle = document.createElement('button');
+            darkModeToggle.textContent = 'ডার্ক মোড';
+            darkModeToggle.className = 'btn';
+            darkModeToggle.style.marginLeft = '10px';
+            
+            // নোটিফিকেশন সিস্টেম
+            function showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.textContent = message;
+                notification.style.position = 'fixed';
+                notification.style.top = '20px';
+                notification.style.right = '20px';
+                notification.style.padding = '15px 20px';
+                notification.style.borderRadius = '5px';
+                notification.style.color = 'white';
+                notification.style.zIndex = '1001';
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.3s';
+                
+                // টাইপ অনুযায়ী রং সেট করুন
+                if (type === 'success') {
+                    notification.style.background = 'var(--success)';
+                } else if (type === 'warning') {
+                    notification.style.background = 'var(--warning)';
+                } else if (type === 'error') {
+                    notification.style.background = 'var(--danger)';
+                } else {
+                    notification.style.background = 'var(--info)';
+                }
+                
+                document.body.appendChild(notification);
+                
+                // অ্যানিমেশন শো করুন
+                setTimeout(() => {
+                    notification.style.opacity = '1';
+                }, 100);
+                
+                // 3 সেকেন্ড পরে হাইড করুন
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+            
+            // উদাহরণ নোটিফিকেশন
+            // showNotification('ওয়েবসাইটটি লোড হয়েছে!', 'success');
+        });
+        
+        // রেস্পন্সিভ মেনু টগল
+        function toggleMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+        
+        // কী-বোর্ড শর্টকাট
+        document.addEventListener('keydown', function(e) {
+            // Ctrl + / প্রেস করলে সার্চ ফোকাস করুন
+            if (e.ctrlKey && e.key === '/') {
+                e.preventDefault();
+                // সার্চ ফাংশনালিটি এখানে যোগ করুন
+                showNotification('সার্চ ফিচারটি শীঘ্রই আসছে!', 'info');
+            }
+        });
+    </script>
+</body>
+</html>
